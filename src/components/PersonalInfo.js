@@ -11,7 +11,7 @@ class Input extends Component {
   render() {
     const {labelName, identifier, changeHandler} = this.props
     return (
-      <div className='Input'>
+      <div className='input'>
         <label>{labelName}</label>: <input type='text' id={identifier} onChange={(e) => changeHandler(e.target)}/>
       </div>
     )
