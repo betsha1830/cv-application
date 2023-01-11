@@ -1,3 +1,18 @@
+.container {
+  padding: 0 15% 0 15%;
+}
+
 .App {
-  text-align: center;
+  
+}
+
+.personal-info-heading, .education-heading, .work-heading {
+  display: flex;
+  justify-content: space-between;
+  /* border: black 1px solid; */
+}
+
+.buttons {
+  justify-content: right;
+  padding-top: 2%;
 }

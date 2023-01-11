@@ -12,7 +12,7 @@ class EducationInfo extends Component {
     const {labelName, identifier, changeHandler} = this.props
     return (
       <div className='Input'>
-        <label>{labelName}</label>: <input type='text' id={identifier} onChange={(e) => changeHandler(e.target)}/>
+        <label>{labelName}</label>: <input type={labelName.includes('Beginning') || labelName.includes('End')  ? 'date' : 'text'} id={identifier} onChange={(e) => changeHandler(e.target)}/>
       </div>
     )
   }
