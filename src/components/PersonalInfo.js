@@ -14,9 +14,9 @@ class PersonalInfo extends Component {
     const user_input = {
       [e.target.id]: e.target.value
     }
-    this.new_obj = Object.assign(this.state.personal_info, user_input)
+    const new_obj = Object.assign(this.state.personal_info, user_input)
     this.setState({
-      personal_info: this.new_obj
+      personal_info: new_obj
     })
   }
 
@@ -32,7 +32,7 @@ class PersonalInfo extends Component {
       Object.keys(this.props.personal_info_obj).forEach((item) => {
         document.getElementById(item).disabled = true
       })
-      this.props.clickHandler(this.new_obj)
+      this.props.clickHandler(this.state.personal_info)
     }
   }
 
