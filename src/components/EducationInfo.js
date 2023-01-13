@@ -4,15 +4,34 @@ class EducationInfo extends Component {
   constructor(props){
     super(props);
     this.state = {
+      temp: {
 
+      },
+      education: []
     }
   }
 
+  inputChange = (e) => {
+    const user_input = {
+      [e.target.id]: e.target.value
+    }
+    const new_obj = Object.assign(this.state.temp, user_input)
+    this.setState({
+      temp: new_obj,
+    })
+    console.log(this.state.temp)
+  }
+
   render() {
-    const {labelName, identifier, changeHandler} = this.props
+    const {labelName} = this.props
     return (
-      <div className='Input'>
-        <label>{labelName}</label>: <input type={labelName.includes('Beginning') || labelName.includes('End')  ? 'date' : 'text'} id={identifier} onChange={(e) => changeHandler(e.target)}/>
+      <div className='eduction-info'>
+        {Object.keys(labelName).map((item) => {
+          return (
+          <div>
+            <label>{labelName[item]}: </label> <input onChange={this.inputChange} type={(labelName[item].include('Beginning')) || (labelName[item].include('End') ? 'date' : 'text')}></input>
+          </div>
+          )})}
       </div>
     )
   }

@@ -10,6 +10,9 @@ class App extends React.Component {
   constructor(props){
     super(props)
     
+    this.submitPersonalInfo = this.submitPersonalInfo.bind(this)
+    this.submitWorkInfo = this.submitWorkInfo.bind(this)
+
     this.state = {
       personal_info: {},
       education: [],
@@ -33,19 +36,15 @@ class App extends React.Component {
         education_label: {
           school_name: 'School Name',
           study_title: 'Title of Study',
-          beginning_study_month: 'Beginning of Education (Month)',
-          beginning_study_year: 'Beginning of Education (Year)',
-          end_study_month: 'End of Education (Month)',
-          end_study_year: 'End of Education (Year)',
+          beginning_study_date: 'Beginning of Education',
+          end_study_date: 'End of Education',
         },
         work_label: {
           comp_name: 'Company Name',
           work_pos: 'Position Title',
           work_description: 'Work Description',
-          beginning_work_month: 'Beginning of Work (Month)',
-          beginning_work_year: 'Beginning of Work (Year)',
-          end_work_month: 'End of Work (Month)',
-          end_work_year: 'End of Work (Year)',
+          beginning_work_date: 'Beginning of Work',
+          end_work_date: 'End of Work',
         }
       }
     }
@@ -53,16 +52,38 @@ class App extends React.Component {
   }
 
   submitPersonalInfo = (obj) => {
+    obj.preventDefault()
     this.setState({
       personal_info: obj
     })
-    console.log(this.state.personal_info)
+  }
+
+  submitWorkInfo = (obj) => {
+    this.setState({
+      work: obj
+    })
+    // console.log(this.state.work)
   }
 
   render(){
     return(
       <div className='App container'>
-        <PersonalInfo personal_info_obj={this.state.label.personal_info_label} clickHandler={this.submitPersonalInfo} />
+        {/* <PersonalInfo personal_info_obj={this.state.label.personal_info_label} clickHandler={this.submitPersonalInfo} /> */}
+        <WorkInfo workLabel={this.state.label.work_label} clickHandler={this.submitWorkInfo}/>
+        {
+          this.state.work.map((item) => {
+            return(
+              <div> 
+                {Object.keys(item).map((key) => {
+                  return(
+                    <div>
+                      {item[key]}  
+                    </div>
+                  )
+                })}
+              </div>
+          )})
+        }
       </div>
     )
   }

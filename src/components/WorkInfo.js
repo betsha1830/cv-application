@@ -3,21 +3,90 @@ import React from "react";
 class WorkInfo extends React.Component {
   constructor(props){
     super(props)
+
+    this.addWork = this.addWork.bind(this)
+    
     this.state = {
-      
+      temp: {},
+      work: []
+    }
+  }
+
+  // Temporarly stores the user input into an object for later to be copied to the main work array object
+
+  inputChange = (e) => {
+    const user_input = {
+      [e.target.id]: e.target.value
+    }
+    const new_obj = Object.assign(this.state.temp, user_input)
+    this.setState({
+      temp: new_obj
+    })
+    // console.log(this.state.temp)
+  }
+
+  // Clears the input field to insert their next work experience
+
+  clearFields = () => {
+    Object.keys(this.props.workLabel).forEach((item) => {
+      document.getElementById(item).value = ''
+    })
+  }
+
+  // Dsiables the end work date if candidate is still enrolled in their currnet job
+
+  fieldDisabled = () => {    
+    if(document.getElementById('still_enrolled_work').checked){
+      document.getElementById('end_work_date').disabled = true
+      return true
+    }
+    document.getElementById('end_work_date').disabled = false
+    return false
+  }
+
+  // Concatenates their work experience to the work array object
+
+  addWork = () => {
+    if(this.fieldDisabled()){
+      const obj = Object.assign(this.state.temp, {end_work_date: 'Present'})
+      this.setState({
+        work: this.state.work.concat(obj),
+        temp: {}
+      })
+      console.log(obj)
+      this.props.clickHandler(this.state.work)
+      this.clearFields()
+    }
+    else {
+      this.setState({
+        work: this.state.work.concat(this.state.temp),
+        temp: {}
+      })
+      this.props.clickHandler(this.state.work)
+      this.clearFields()
+      console.log(this.state.work, 'else')
     }
   }
 
   render(){
-    const {labelName, identifier, changeHandler} = this.props
+    const {workLabel} = this.props
 
     return(
       <div className="work-info">
-        <label>{labelName}</label>: <input type={labelName.includes('Beginning') || labelName.includes('End') ? 'date' : 'text'} id={identifier} onChange={(e) => changeHandler(e.target)}/>
+        {
+          Object.keys(workLabel).map((item) => {
+            return(
+              <div>
+                <label>{workLabel[item]}</label>: <input required value={this.state.text} onChange={this.inputChange} type={workLabel[item].includes('Beginning') || workLabel[item].includes('End') ? 'date' : 'text'} id={item} />
+              </div>
+            )})
+        }
+        <input onChange={this.fieldDisabled} id='still_enrolled_work' type={'checkbox'}></input> <span>Still enrolled in this position</span>
+        <button onClick={this.addWork} id='add_work_button'>Add</button>
+        
       </div>
     )
   }
-
 }
 
 export default WorkInfo
