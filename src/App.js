@@ -68,7 +68,16 @@ class App extends React.Component {
   }
 
   deleteWork = (iden) => {
-    
+    let temp_obj = this.state.work
+    temp_obj.map((objs, index) => {
+      if(iden === index){
+        temp_obj.splice(iden, 1)
+        // console.log(temp_obj)
+      }
+    })
+    this.setState({
+      work: temp_obj
+    })
   }
 
   render(){
