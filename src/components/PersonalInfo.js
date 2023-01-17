@@ -48,13 +48,13 @@ class PersonalInfo extends Component {
           )
         })}
         <button onClick={this.clicked} id='personal_info_button'>Submit</button>
-        {Object.keys(personal_info_obj).map((item) => {
+        {/* {Object.keys(personal_info_obj).map((item) => {
           return (
             <div> 
               <label>{personal_info_obj[item]}</label>: {this.state.personal_info[item]}
             </div>
           )
-        })}
+        })} */}
       </div>
     )
   }

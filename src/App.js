@@ -17,6 +17,8 @@ class App extends React.Component {
       personal_info: {},
       education: [],
       work: [],
+      work_temp: {},
+      education_temp: {},
       label: {
         // personal_info_label: ['First Name', 'Last Name', 'Email', 'Phone Number', 'Address',],
         // education_label: ['School Name', 'Title of Study', 'Beginning of Education (Month)', 'Beginning of Education (Year)', 'End of Education (Month)', 'End of Education (Year)'],
@@ -52,17 +54,21 @@ class App extends React.Component {
   }
 
   submitPersonalInfo = (obj) => {
-    obj.preventDefault()
     this.setState({
       personal_info: obj
     })
   }
 
   submitWorkInfo = (obj) => {
+    console.log(obj)
     this.setState({
-      work: obj
+      work: this.state.work.concat(obj),
     })
     // console.log(this.state.work)
+  }
+
+  deleteWork = (iden) => {
+    
   }
 
   render(){
@@ -71,19 +77,28 @@ class App extends React.Component {
         {/* <PersonalInfo personal_info_obj={this.state.label.personal_info_label} clickHandler={this.submitPersonalInfo} /> */}
         <WorkInfo workLabel={this.state.label.work_label} clickHandler={this.submitWorkInfo}/>
         {
-          this.state.work.map((item) => {
-            return(
+          this.state.work.map((item, pos) => {
+            return (
               <div> 
-                {Object.keys(item).map((key) => {
-                  return(
-                    <div>
-                      {item[key]}  
-                    </div>
-                  )
+                Work Position {pos+1} <i onClick={() => this.deleteWork(pos)}><img src={TrashButton} alt={'Delete work position ' + pos+1}></img></i>
+                {
+                  Object.keys(item).map((obj_key) => {
+                  return (
+                  <div>
+                    {this.state.label.work_label[obj_key]}: {item[obj_key]}
+                  </div>
+            )
                 })}
-              </div>
+            </div>
           )})
         }
+        {/* {Object.keys(this.state.personal_info).map((item) => {
+          return (
+            <div> 
+              <label>{this.state.label.personal_info_label[item]}</label>: {this.state.personal_info[item]}
+            </div>
+          )
+        })} */}
       </div>
     )
   }

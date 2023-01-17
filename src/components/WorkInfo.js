@@ -49,22 +49,25 @@ class WorkInfo extends React.Component {
   addWork = () => {
     if(this.fieldDisabled()){
       const obj = Object.assign(this.state.temp, {end_work_date: 'Present'})
-      this.setState({
-        work: this.state.work.concat(obj),
-        temp: {}
-      })
-      console.log(obj)
-      this.props.clickHandler(this.state.work)
+      // this.setState({
+      //   work: this.state.work.concat(obj),
+      //   temp: {}
+      // })
+      // console.log(obj)
+      this.props.clickHandler(obj)
       this.clearFields()
     }
     else {
+      // this.setState({
+      //   work: this.state.work.concat(this.state.temp),
+      //   temp: {}
+      // })
+      this.props.clickHandler(this.state.temp)
       this.setState({
-        work: this.state.work.concat(this.state.temp),
-        temp: {}
+        temp: {},
       })
-      this.props.clickHandler(this.state.work)
       this.clearFields()
-      console.log(this.state.work, 'else')
+      // console.log(this.state.work, 'else')
     }
   }
 
@@ -83,7 +86,20 @@ class WorkInfo extends React.Component {
         }
         <input onChange={this.fieldDisabled} id='still_enrolled_work' type={'checkbox'}></input> <span>Still enrolled in this position</span>
         <button onClick={this.addWork} id='add_work_button'>Add</button>
-        
+        {
+          this.state.work.map((item) => {
+            return(
+              <div> 
+                {Object.keys(item).map((key) => {
+                  return(
+                    <div>
+                      {workLabel[key]}: {item[key]}  
+                    </div>
+                  )
+                })}
+              </div>
+          )})
+        }
       </div>
     )
   }
