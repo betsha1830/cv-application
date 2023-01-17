@@ -3,8 +3,9 @@ import './App.css';
 import EducationInfo from './components/EducationInfo';
 import PersonalInfo from './components/PersonalInfo';
 import WorkInfo from './components/WorkInfo';
-import AddButton from './add-new.png'
+import EditButton from './edit.png'
 import TrashButton from './trash.png'
+
 
 class App extends React.Component {
   constructor(props){
@@ -60,10 +61,20 @@ class App extends React.Component {
   }
 
   submitWorkInfo = (obj) => {
-    console.log(obj)
-    this.setState({
-      work: this.state.work.concat(obj),
-    })
+    if(document.getElementById('add_work_button').innerText === 'Done'){
+      let temp_obj = Object.assign(this.state.work)
+      temp_obj[this.work_pos] = obj
+      this.setState({
+        work: temp_obj
+      })
+      document.getElementById('add_work_button').innerText = 'Add'
+    }
+    // console.log(obj)
+    else{
+      this.setState({
+        work: this.state.work.concat(obj),
+      })
+    }
     // console.log(this.state.work)
   }
 
@@ -80,6 +91,16 @@ class App extends React.Component {
     })
   }
 
+  editWork = (pos) => {
+    this.work_pos = pos
+    document.getElementById('add_work_button').innerText = 'Done'
+    this.state.work.map((objs, index) => {
+      return Object.keys(objs).map((key) => {
+        return document.getElementById(key).value = objs[key]
+      })
+    })
+  }
+
   render(){
     return(
       <div className='App container'>
@@ -89,7 +110,7 @@ class App extends React.Component {
           this.state.work.map((item, pos) => {
             return (
               <div> 
-                Work Position {pos+1} <i onClick={() => this.deleteWork(pos)}><img src={TrashButton} alt={'Delete work position ' + pos+1}></img></i>
+                Work Position {pos+1} <i onClick={() => this.editWork(pos)}><img src={EditButton} alt={'Edit work position' + pos+1}></img></i> <i onClick={() => this.deleteWork(pos)}><img src={TrashButton} alt={'Delete work position ' + pos+1}></img></i>
                 {
                   Object.keys(item).map((obj_key) => {
                   return (

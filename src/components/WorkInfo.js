@@ -15,13 +15,31 @@ class WorkInfo extends React.Component {
   // Temporarly stores the user input into an object for later to be copied to the main work array object
 
   inputChange = (e) => {
-    const user_input = {
-      [e.target.id]: e.target.value
+    if(document.getElementById('add_work_button').innerText === 'Done'){
+      let new_obj = {}
+      Object.keys(this.props.workLabel).map((label) => {
+        new_obj = Object.assign(new_obj, {[label]: document.getElementById(label).value})
+        // console.log(document.getElementById(label).value, new_obj)
+      })
+      const user_input = {
+        [e.target.id]: e.target.value
+      }
+      new_obj = Object.assign(new_obj, user_input)
+      this.setState({
+        temp: new_obj
+      })
+      // console.log(new_obj)
     }
-    const new_obj = Object.assign(this.state.temp, user_input)
-    this.setState({
-      temp: new_obj
-    })
+    else {
+      const user_input = {
+        [e.target.id]: e.target.value
+      }
+      const new_obj = Object.assign(this.state.temp, user_input)
+      this.setState({
+        temp: new_obj
+      })
+    }
+    
     // console.log(this.state.temp)
   }
 
