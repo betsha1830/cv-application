@@ -67,8 +67,13 @@ class App extends React.Component {
       let final_arr = []
       temp_arr.forEach((item, index) => {
         if(index == this.work_pos){
-          console.log(obj)
-          final_arr.push(obj)
+          if(Object.entries(obj).length === 0){
+            final_arr.push(item)
+          }
+          else{
+            console.log(obj)
+            final_arr.push(obj)
+          }
         }
         else{
           console.log(item)
