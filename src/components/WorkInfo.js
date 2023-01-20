@@ -7,9 +7,9 @@ class WorkInfo extends React.Component {
     this.addWork = this.addWork.bind(this)
     
     this.state = {
-      temp: {},
-      work: []
+      temp: {}
     }
+    this.temp_obj = {}
   }
 
   // Temporarly stores the user input into an object for later to be copied to the main work array object
@@ -17,9 +17,9 @@ class WorkInfo extends React.Component {
   inputChange = (e) => {
     if(document.getElementById('add_work_button').innerText === 'Done'){
       let new_obj = {}
-      Object.keys(this.props.workLabel).map((label) => {
+      Object.keys(this.props.workLabel).forEach((label) => {
         new_obj = Object.assign(new_obj, {[label]: document.getElementById(label).value})
-        // console.log(document.getElementById(label).value, new_obj)
+        console.log(document.getElementById(label).value, new_obj)
       })
       const user_input = {
         [e.target.id]: e.target.value
@@ -49,11 +49,13 @@ class WorkInfo extends React.Component {
     Object.keys(this.props.workLabel).forEach((item) => {
       document.getElementById(item).value = ''
     })
+    document.getElementById('end_work_date').disabled = false
+    document.getElementById('still_enrolled_work').checked = false
   }
 
-  // Dsiables the end work date if candidate is still enrolled in their currnet job
+  // Disables the end work date if candidate is still enrolled in their currnet job
 
-  fieldDisabled = () => {    
+  fieldChecked = () => {    
     if(document.getElementById('still_enrolled_work').checked){
       document.getElementById('end_work_date').disabled = true
       return true
@@ -65,27 +67,69 @@ class WorkInfo extends React.Component {
   // Concatenates their work experience to the work array object
 
   addWork = () => {
-    if(this.fieldDisabled()){
-      const obj = Object.assign(this.state.temp, {end_work_date: 'Present'})
-      // this.setState({
-      //   work: this.state.work.concat(obj),
-      //   temp: {}
-      // })
-      // console.log(obj)
-      this.props.clickHandler(obj)
-      this.clearFields()
-    }
-    else {
-      // this.setState({
-      //   work: this.state.work.concat(this.state.temp),
-      //   temp: {}
-      // })
-      this.props.clickHandler(this.state.temp)
+    if(document.getElementById('add_work_button').innerText === 'Done'){
+      if(this.fieldChecked()){
+        let obj = {}
+        if(Object.entries(this.state.temp).length === 0) {
+          // console.log(this.props.workArr)
+          Object.keys(this.props.workLabel).forEach((label) => {
+            obj = Object.assign(obj, {[label]: document.getElementById(label).value})
+            console.log(document.getElementById(label).value, obj)
+          })
+          obj = Object.assign(obj, {end_work_date: 'Present'})
+          this.props.clickHandler(obj)
+          this.clearFields()
+        }
+        else {
+          const obj = Object.assign(this.state.temp, {end_work_date: 'Present'})
+          this.props.clickHandler(obj)
+          console.log(obj, 'if')
+          this.clearFields()
+        }
+      }
+  
+      else {
+        // console.log(this.state.temp)
+        // const obj = Object.assign(this.state.temp, this.props.workArr)
+  
+        // console.log(obj, 'else')
+        
+        // document.getElementById('add_work_button').innerText = 'Add'
+        this.props.clickHandler(this.state.temp)
+        this.clearFields()
+  
+        this.setState({
+          temp: {}
+        })
+      }
       this.setState({
-        temp: {},
+        temp: {}
       })
-      this.clearFields()
-      // console.log(this.state.work, 'else')
+    }
+
+    else {
+
+      if(this.fieldChecked()){
+        // this.populateObject()
+        const temp_obj = Object.assign(this.state.temp, {end_work_date: 'Present'})
+        this.props.clickHandler(temp_obj)
+        this.clearFields()
+        this.setState({
+          temp: {}
+        })
+      }
+      
+      else {
+        this.props.clickHandler(this.state.temp)
+
+        // document.getElementById('add_work_button').innerText = 'Add'
+        this.clearFields()
+        this.setState({
+          temp: {}
+        })
+        // console.log(this.state.temp, 'else')
+      }
+      
     }
   }
 
@@ -102,9 +146,9 @@ class WorkInfo extends React.Component {
               </div>
             )})
         }
-        <input onChange={this.fieldDisabled} id='still_enrolled_work' type={'checkbox'}></input> <span>Still enrolled in this position</span>
+        <input onChange={this.fieldChecked} id='still_enrolled_work' type={'checkbox'}></input> <span>Still enrolled in this position</span>
         <button onClick={this.addWork} id='add_work_button'>Add</button>
-        {
+        {/* {
           this.state.work.map((item) => {
             return(
               <div> 
@@ -117,7 +161,7 @@ class WorkInfo extends React.Component {
                 })}
               </div>
           )})
-        }
+        } */}
       </div>
     )
   }

@@ -51,7 +51,7 @@ class App extends React.Component {
         }
       }
     }
-    
+    this.work_pos = 0
   }
 
   submitPersonalInfo = (obj) => {
@@ -62,10 +62,24 @@ class App extends React.Component {
 
   submitWorkInfo = (obj) => {
     if(document.getElementById('add_work_button').innerText === 'Done'){
-      let temp_obj = Object.assign(this.state.work)
-      temp_obj[this.work_pos] = obj
+      let temp_obj = Object.assign(this.state.work[this.work_pos], obj)
+      let temp_arr = Object.assign(this.state.work)
+      let final_arr = []
+      temp_arr.forEach((item, index) => {
+        if(index == this.work_pos){
+          console.log(obj)
+          final_arr.push(obj)
+        }
+        else{
+          console.log(item)
+          final_arr.push(item)
+        }
+      })
+
+      console.log(final_arr)
+
       this.setState({
-        work: temp_obj
+        work: final_arr
       })
       document.getElementById('add_work_button').innerText = 'Add'
     }
@@ -80,7 +94,7 @@ class App extends React.Component {
 
   deleteWork = (iden) => {
     let temp_obj = this.state.work
-    temp_obj.map((objs, index) => {
+    temp_obj.forEach((objs, index) => {
       if(iden === index){
         temp_obj.splice(iden, 1)
         // console.log(temp_obj)
@@ -91,21 +105,34 @@ class App extends React.Component {
     })
   }
 
+  // Populate the input field
+
   editWork = (pos) => {
     this.work_pos = pos
+    console.log(this.work_pos)
     document.getElementById('add_work_button').innerText = 'Done'
-    this.state.work.map((objs, index) => {
-      return Object.keys(objs).map((key) => {
-        return document.getElementById(key).value = objs[key]
-      })
+    // this.state.work.map((objs, index) => {
+    //   return Object.keys(objs).map((key) => {
+    //     return document.getElementById(key).value = objs[key]
+    //   })
+    // })
+    Object.keys(this.state.work[pos]).map((key) => {
+      return document.getElementById(key).value = this.state.work[pos][key]
     })
+    if(this.state.work[pos].end_work_date === 'Present') {
+      document.getElementById('still_enrolled_work').checked = true
+      document.getElementById('end_work_date').disabled = true
+    }
+    else {
+      document.getElementById('still_enrolled_work').checked = false
+    }
   }
 
   render(){
     return(
       <div className='App container'>
         {/* <PersonalInfo personal_info_obj={this.state.label.personal_info_label} clickHandler={this.submitPersonalInfo} /> */}
-        <WorkInfo workLabel={this.state.label.work_label} clickHandler={this.submitWorkInfo}/>
+        <WorkInfo workLabel={this.state.label.work_label} workArr={this.state.work[this.work_pos]} clickHandler={this.submitWorkInfo}/>
         {
           this.state.work.map((item, pos) => {
             return (
