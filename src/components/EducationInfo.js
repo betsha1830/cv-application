@@ -4,34 +4,84 @@ class EducationInfo extends Component {
   constructor(props){
     super(props);
     this.state = {
-      temp: {
-
-      },
+      temp: {},
       education: []
     }
   }
 
   inputChange = (e) => {
-    const user_input = {
-      [e.target.id]: e.target.value
+    if(document.getElementById('add_education_button').innerText === 'Done'){
+      let new_obj = {}
+      Object.keys(this.props.educationLabel).forEach((label) => {
+        new_obj = Object.assign(new_obj, {[label]: document.getElementById(label).value})
+        console.log(document.getElementById(label).value, new_obj)
+      })
+      const user_input = {
+        [e.target.id]: e.target.value
+      }
+      new_obj = Object.assign(new_obj, user_input)
+      this.setState({
+        temp: new_obj
+      })
+      console.log(this.state.temp)
     }
-    const new_obj = Object.assign(this.state.temp, user_input)
-    this.setState({
-      temp: new_obj,
+    else{
+      const user_input = {
+        [e.target.id]: e.target.value
+      }
+      const new_obj = Object.assign(this.state.temp, user_input)
+      this.setState({
+        temp: new_obj,
+      })
+      console.log(this.state.temp)
+    }
+  }
+
+  clearFields = () => {
+    Object.keys(this.props.educationLabel).forEach((item) => {
+      document.getElementById(item).value = ''
     })
-    console.log(this.state.temp)
+  }
+
+  addEducation = () => {
+    if(document.getElementById('add_education_button').innerText === 'Done'){
+      if(Object.entries(this.state.temp).length === 0){
+        let obj = {}
+        Object.keys(this.props.educationLabel).forEach((label) => {
+          obj = Object.assign(obj, {[label]: document.getElementById(label).value})
+          console.log(document.getElementById(label).value, obj)
+        })
+        this.props.clickHandler(obj)
+        this.clearFields()
+      }
+      else{
+        this.props.clickHandler(this.state.temp)
+        this.clearFields()
+        this.setState({
+        temp: {}
+      })
+      }
+    }
+    else{
+      this.props.clickHandler(this.state.temp)
+      this.setState({
+        temp: {}
+      })
+      this.clearFields()
+    }
   }
 
   render() {
-    const {labelName} = this.props
+    const {educationLabel} = this.props
     return (
       <div className='eduction-info'>
-        {Object.keys(labelName).map((item) => {
+        {Object.keys(educationLabel).map((item) => {
           return (
           <div>
-            <label>{labelName[item]}: </label> <input onChange={this.inputChange} type={(labelName[item].include('Beginning')) || (labelName[item].include('End') ? 'date' : 'text')}></input>
+            <label>{educationLabel[item]}: </label> <input id={item} onChange={this.inputChange} type={((educationLabel[item].includes('Beginning')) || (educationLabel[item].includes('End')) ? 'date' : 'text')}></input>
           </div>
           )})}
+          <button id={'add_education_button'} onClick={this.addEducation}>Add</button>
       </div>
     )
   }

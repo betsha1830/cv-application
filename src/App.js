@@ -62,12 +62,12 @@ class App extends React.Component {
 
   submitWorkInfo = (obj) => {
     if(document.getElementById('add_work_button').innerText === 'Done'){
-      let temp_obj = Object.assign(this.state.work[this.work_pos], obj)
+      // let temp_obj = Object.assign(this.state.work[this.work_pos], obj)
       let temp_arr = Object.assign(this.state.work)
       let final_arr = []
       temp_arr.forEach((item, index) => {
-        if(index == this.work_pos){
-          if(Object.entries(obj).length === 0){
+        if(index === this.work_pos){ // sus??
+          if(Object.entries(obj).length === 0){ // checks if the object is empty or not
             final_arr.push(item)
           }
           else{
@@ -95,6 +95,54 @@ class App extends React.Component {
       })
     }
     // console.log(this.state.work)
+  }
+
+  submitEducationInfo = (obj) => {
+    if(document.getElementById('add_education_button').innerText === 'Done'){
+      // let temp_obj = Object.assign(this.state.work[this.work_pos], obj)
+      let temp_arr = Object.assign(this.state.education)
+      let final_arr = []
+      temp_arr.forEach((item, index) => {
+        if(index === this.education_pos){ // sus??
+          if(Object.entries(obj).length === 0){ // checks if the object is empty or not
+            final_arr.push(item)
+          }
+          else{
+            console.log(obj)
+            final_arr.push(obj)
+          }
+        }
+        else{
+          console.log(item)
+          final_arr.push(item)
+        }
+      })
+
+      console.log(final_arr)
+
+      this.setState({
+        education: final_arr
+      })
+      document.getElementById('add_education_button').innerText = 'Add'
+    }
+    else{
+      this.setState({
+        education: this.state.education.concat(obj)
+      })
+    }
+  }
+
+  deleteEducation = (iden) => {
+    let temp_obj = this.state.education
+    temp_obj.forEach((objs, index) => {
+      if(iden === index){
+        temp_obj.splice(iden, 1)
+        // console.log(temp_obj)
+      }
+    })
+    this.setState({
+      work: temp_obj
+    })
   }
 
   deleteWork = (iden) => {
@@ -133,12 +181,20 @@ class App extends React.Component {
     }
   }
 
+  editEducation = (pos) => {
+    this.education_pos = pos
+    document.getElementById('add_education_button').innerText = 'Done'
+    Object.keys(this.state.education[pos]).map((key) => {
+      return document.getElementById(key).value = this.state.education[pos][key]
+    })
+  }
+
   render(){
     return(
       <div className='App container'>
         {/* <PersonalInfo personal_info_obj={this.state.label.personal_info_label} clickHandler={this.submitPersonalInfo} /> */}
-        <WorkInfo workLabel={this.state.label.work_label} workArr={this.state.work[this.work_pos]} clickHandler={this.submitWorkInfo}/>
-        {
+        {/* <WorkInfo workLabel={this.state.label.work_label} workArr={this.state.work[this.work_pos]} clickHandler={this.submitWorkInfo}/> */}
+        {/* {
           this.state.work.map((item, pos) => {
             return (
               <div> 
@@ -153,7 +209,7 @@ class App extends React.Component {
                 })}
             </div>
           )})
-        }
+        } */}
         {/* {Object.keys(this.state.personal_info).map((item) => {
           return (
             <div> 
@@ -161,6 +217,23 @@ class App extends React.Component {
             </div>
           )
         })} */}
+        <EducationInfo educationLabel={this.state.label.education_label} educationArr={this.state.education[this.education_pos]} clickHandler={this.submitEducationInfo}/>
+        {
+          this.state.education.map((item, pos) => {
+            return (
+              <div> 
+                Education Position {pos+1} <i onClick={() => this.editEducation(pos)}><img src={EditButton} alt={'Edit education position' + pos+1}></img></i> <i onClick={() => this.deleteEducation(pos)}><img src={TrashButton} alt={'Delete education position ' + pos+1}></img></i>
+                {
+                  Object.keys(item).map((obj_key) => {
+                  return (
+                  <div>
+                    {this.state.label.education_label[obj_key]}: {item[obj_key]}
+                  </div>
+            )
+                })}
+            </div>
+          )})
+        }
       </div>
     )
   }
