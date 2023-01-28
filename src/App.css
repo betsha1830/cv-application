@@ -1,18 +1,90 @@
 .container {
-  padding: 0 15% 0 15%;
+  margin: 5% 10% 10% 10%;
+}
+
+body {
+  background-color: rgba(243, 236, 218, 1);
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  font-size: 54px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Tienne', serif;
+  margin-bottom: 54px;
+}
+
+.left_side {
+  width: 493px;
+}
+
+.info_heading {
+  font-family: 'Tienne', serif;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 19px;
+}
+
+.label {
+  font-size: 24px;
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  margin-bottom: 7px;
+  margin-top: 19px;
+}
+
+input[type='text'], input[type='date'] {
+  border: 2px rgba(105, 105, 105, 1) solid;
+  width: 467px;
+  height: 54px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 24px;
+  padding-left: 20px;
   
 }
 
-.personal-info-heading, .education-heading, .work-heading {
+.still_enrolled {
   display: flex;
-  justify-content: space-between;
-  /* border: black 1px solid; */
+  margin-top: 22px;
+  margin-left: 20px;
 }
 
-.buttons {
-  justify-content: right;
-  padding-top: 2%;
+.checkbox_label {
+  margin-left: 17px;
 }
+
+input[type='checkbox'] {
+  width: 22px;
+  height: 22px;
+  background-color: black;
+}
+
+input[type='checkbox']:checked {
+  accent-color: black;
+}
+
+span{
+  font-family: 'Mulish', sans-serif;
+  font-size: 20px;
+  padding-top: 2px;
+}
+
+button {
+  float: right;
+  width: 162px;
+  height: 59px;
+  background-color: white;
+  border: 2px black solid;
+  font-size: 26px;
+  color: rgba(233, 191, 85, 1);
+  font-family: 'Mulish', sans-serif;
+  font-weight: bold;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+

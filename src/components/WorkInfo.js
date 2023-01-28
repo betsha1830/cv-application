@@ -142,12 +142,13 @@ class WorkInfo extends React.Component {
           Object.keys(workLabel).map((item) => {
             return(
               <div>
-                <label>{workLabel[item]}</label>: <input required value={this.state.text} onChange={this.inputChange} type={workLabel[item].includes('Beginning') || workLabel[item].includes('End') ? 'date' : 'text'} id={item} />
+                <div className="label"><label>{workLabel[item]}</label>: </div>
+                <input required value={this.state.text} onChange={this.inputChange} type={workLabel[item].includes('Beginning') || workLabel[item].includes('End') ? 'date' : 'text'} id={item} />
               </div>
             )})
         }
-        <input onChange={this.fieldChecked} id='still_enrolled_work' type={'checkbox'}></input> <span>Still enrolled in this position</span>
-        <button onClick={this.addWork} id='add_work_button'>Add</button>
+        <div className="still_enrolled"><input onChange={this.fieldChecked} id='still_enrolled_work' type={'checkbox'}></input> <div className="checkbox_label"><span>Still enrolled in this position</span></div></div>
+        <div><button onClick={this.addWork} id='add_work_button'>Add</button></div>
         {/* {
           this.state.work.map((item) => {
             return(

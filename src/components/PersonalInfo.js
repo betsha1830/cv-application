@@ -42,12 +42,13 @@ class PersonalInfo extends Component {
       <div className='input'>
         {Object.keys(personal_info_obj).map((item) => {
           return (
-            <div> 
-              <label>{personal_info_obj[item]}</label>: <input type='text' id={item} onChange={(e) => this.inputChange(e)}/>
+            <div>
+              <div className='label'><label>{personal_info_obj[item]}</label>:</div>
+              <input type='text' id={item} onChange={(e) => this.inputChange(e)}/>
             </div>
           )
         })}
-        <button onClick={this.clicked} id='personal_info_button'>Submit</button>
+        <div><button onClick={this.clicked} id='personal_info_button'>Submit</button></div>
         {/* {Object.keys(personal_info_obj).map((item) => {
           return (
             <div> 
