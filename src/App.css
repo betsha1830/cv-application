@@ -1,3 +1,4 @@
+/* Main window container */
 .container {
   margin: 5% 10% 10% 10%;
 }
@@ -6,11 +7,14 @@ body {
   background-color: rgba(243, 236, 218, 1);
 }
 
-.App {
+/* Page content is splitted into two, left and right */
+.content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between
 }
 
+/* Main heading of the page */
 .header {
   font-size: 54px;
   text-align: center;
@@ -19,15 +23,36 @@ body {
   margin-bottom: 54px;
 }
 
+/* Sides styling -- Begin */
 .left_side {
   width: 493px;
+}
+
+.right_side {
+  margin-top: 49px;
+  width: 493px;
+}
+/* Sides styling -- End */
+
+.instruction {
+  font-size: 48px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Tienne', serif;
+}
+
+.instruction_detail {
+  /* width: auto; */
+  font-family: 'Mulish', sans-serif;
+  font-size: 20px;
+  text-align: justify;
+  margin-bottom: 60px;
 }
 
 .info_heading {
   font-family: 'Tienne', serif;
   font-size: 30px;
   font-weight: bold;
-  margin-bottom: 19px;
 }
 
 .label {
@@ -71,7 +96,10 @@ input[type='checkbox']:checked {
 span{
   font-family: 'Mulish', sans-serif;
   font-size: 20px;
-  padding-top: 2px;
+}
+
+.pesronal_info, .education_info, .work_info {
+  margin-bottom: 179px;
 }
 
 button {
@@ -88,3 +116,8 @@ button {
   margin-bottom: 60px;
 }
 
+button:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}

@@ -167,93 +167,101 @@ class App extends React.Component {
   render() {
     return (
       <div className="App container">
-        <div className="header">C.V. Maker</div>
-        <div className="left_side">
-          <div className="info_heading">Personal Information</div>
-          <PersonalInfo
-          personal_info_obj={this.state.label.personal_info_label}
-          clickHandler={this.submitPersonalInfo}
-          />
-        </div>
-        <div className="left_side">
-          <div className="info_heading">Education Information</div>
-          <EducationInfo
-          educationLabel={this.state.label.education_label}
-          educationArr={this.state.education[this.education_pos]}
-          clickHandler={this.submitEducationInfo}
-          />
-        </div>
-        <div className="left_side">
-          <div className="info_heading">Work Information</div>
-          <WorkInfo
-          workLabel={this.state.label.work_label}
-          workArr={this.state.work[this.work_pos]}
-          clickHandler={this.submitWorkInfo}
-          />
-        </div>
-        
-        
-        {Object.keys(this.state.personal_info).map((item) => {
-          return (
-            <div>
-              <label>{this.state.label.personal_info_label[item]}</label>:{" "}
-              {this.state.personal_info[item]}
+        <h1 className="header">C.V. Maker</h1>
+        <div className="content">
+          <div className="left_side">
+            <div className="pesronal_info">
+              <PersonalInfo
+              personal_info_obj={this.state.label.personal_info_label}
+              clickHandler={this.submitPersonalInfo}
+              />
             </div>
-          )
-        })}
-        {this.state.education.map((item, pos) => {
-          return (
-            <div>
-              Education Position {pos + 1}{" "}
-              <i onClick={() => this.editEducation(pos)}>
-                <img
-                  src={EditButton}
-                  alt={"Edit education position" + pos + 1}
-                ></img>
-              </i>{" "}
-              <i onClick={() => this.deleteEducation(pos)}>
-                <img
-                  src={TrashButton}
-                  alt={"Delete education position " + pos + 1}
-                ></img>
-              </i>
-              {Object.keys(item).map((obj_key) => {
-                return (
-                  <div>
-                    {this.state.label.education_label[obj_key]}: {item[obj_key]}
-                  </div>
-                )
-              })}
+            <div className="education_info">
+              <EducationInfo
+              educationLabel={this.state.label.education_label}
+              educationArr={this.state.education[this.education_pos]}
+              clickHandler={this.submitEducationInfo}
+              />
             </div>
-          )
-        })}
-        {this.state.work.map((item, pos) => {
-          return (
-            <div>
-              Work Position {pos + 1}{" "}
-              <i onClick={() => this.editWork(pos)}>
-                <img
-                  src={EditButton}
-                  alt={"Edit work position" + pos + 1}
-                ></img>
-              </i>{" "}
-              <i onClick={() => this.deleteWork(pos)}>
-                <img
-                  src={TrashButton}
-                  alt={"Delete work position " + pos + 1}
-                ></img>
-              </i>
-              {Object.keys(item).map((obj_key) => {
-                return (
-                  <div>
-                    {this.state.label.work_label[obj_key]}: {item[obj_key]}
-                  </div>
-                )
-              })}
+            <div className="work_education">
+              <WorkInfo
+              workLabel={this.state.label.work_label}
+              workArr={this.state.work[this.work_pos]}
+              clickHandler={this.submitWorkInfo}
+              />
             </div>
-          )
-        })}
-        
+          </div>
+
+          <div className="right_side">
+            <h1 className="instruction">Instructions</h1>
+            <div className="instruction_detail">
+            Pretty simple. Fill out this simple form and when you’re done, just click on 
+            'button' to generate your own CV.
+            <br></br><br></br>If you want to edit or remove any of your entry you can do so in the Entry section.
+            </div>
+            <h1 className="info_heading">Entry</h1>
+            {Object.keys(this.state.personal_info).map((item) => {
+              return (
+                <div>
+                  <label>{this.state.label.personal_info_label[item]}</label>:{" "}
+                  {this.state.personal_info[item]}
+                </div>
+              )
+            })}
+            {this.state.education.map((item, pos) => {
+              return (
+                <div>
+                  Education Position {pos + 1}{" "}
+                  <i onClick={() => this.editEducation(pos)}>
+                    <img
+                      src={EditButton}
+                      alt={"Edit education position" + pos + 1}
+                    ></img>
+                  </i>{" "}
+                  <i onClick={() => this.deleteEducation(pos)}>
+                    <img
+                      src={TrashButton}
+                      alt={"Delete education position " + pos + 1}
+                    ></img>
+                  </i>
+                  {Object.keys(item).map((obj_key) => {
+                    return (
+                      <div>
+                        {this.state.label.education_label[obj_key]}: {item[obj_key]}
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })}
+            {this.state.work.map((item, pos) => {
+              return (
+                <div>
+                  Work Position {pos + 1}{" "}
+                  <i onClick={() => this.editWork(pos)}>
+                    <img
+                      src={EditButton}
+                      alt={"Edit work position" + pos + 1}
+                    ></img>
+                  </i>{" "}
+                  <i onClick={() => this.deleteWork(pos)}>
+                    <img
+                      src={TrashButton}
+                      alt={"Delete work position " + pos + 1}
+                    ></img>
+                  </i>
+                  {Object.keys(item).map((obj_key) => {
+                    return (
+                      <div>
+                        {this.state.label.work_label[obj_key]}: {item[obj_key]}
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
     )
   }

@@ -40,6 +40,7 @@ class PersonalInfo extends Component {
     const {personal_info_obj} = this.props
     return (
       <div className='input'>
+        <h1 className="info_heading">Personal Information</h1>
         {Object.keys(personal_info_obj).map((item) => {
           return (
             <div>
@@ -49,13 +50,6 @@ class PersonalInfo extends Component {
           )
         })}
         <div><button onClick={this.clicked} id='personal_info_button'>Submit</button></div>
-        {/* {Object.keys(personal_info_obj).map((item) => {
-          return (
-            <div> 
-              <label>{personal_info_obj[item]}</label>: {this.state.personal_info[item]}
-            </div>
-          )
-        })} */}
       </div>
     )
   }

@@ -137,7 +137,8 @@ class WorkInfo extends React.Component {
     const {workLabel} = this.props
 
     return(
-      <div className="work-info">
+      <div className="work_info">
+        <h1 className="info_heading">Work Information</h1>
         {
           Object.keys(workLabel).map((item) => {
             return(
@@ -149,20 +150,6 @@ class WorkInfo extends React.Component {
         }
         <div className="still_enrolled"><input onChange={this.fieldChecked} id='still_enrolled_work' type={'checkbox'}></input> <div className="checkbox_label"><span>Still enrolled in this position</span></div></div>
         <div><button onClick={this.addWork} id='add_work_button'>Add</button></div>
-        {/* {
-          this.state.work.map((item) => {
-            return(
-              <div> 
-                {Object.keys(item).map((key) => {
-                  return(
-                    <div>
-                      {workLabel[key]}: {item[key]}  
-                    </div>
-                  )
-                })}
-              </div>
-          )})
-        } */}
       </div>
     )
   }
