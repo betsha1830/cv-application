@@ -1,6 +1,6 @@
 import React from "react"
 import "./App.css"
-// import './styles/Style.css'
+import Footer from './components/Footer'
 import EducationInfo from "./components/EducationInfo"
 import PersonalInfo from "./components/PersonalInfo"
 import WorkInfo from "./components/WorkInfo"
@@ -199,67 +199,79 @@ class App extends React.Component {
             'button' to generate your own CV.
             <br></br><br></br>If you want to edit or remove any of your entry you can do so in the Entry section.
             </div>
-            <h1 className="info_heading">Entry</h1>
-            {Object.keys(this.state.personal_info).map((item) => {
-              return (
-                <div>
-                  <label>{this.state.label.personal_info_label[item]}</label>:{" "}
-                  {this.state.personal_info[item]}
-                </div>
-              )
-            })}
-            {this.state.education.map((item, pos) => {
-              return (
-                <div>
-                  Education Position {pos + 1}{" "}
-                  <i onClick={() => this.editEducation(pos)}>
-                    <img
-                      src={EditButton}
-                      alt={"Edit education position" + pos + 1}
-                    ></img>
-                  </i>{" "}
-                  <i onClick={() => this.deleteEducation(pos)}>
-                    <img
-                      src={TrashButton}
-                      alt={"Delete education position " + pos + 1}
-                    ></img>
-                  </i>
-                  {Object.keys(item).map((obj_key) => {
-                    return (
-                      <div>
-                        {this.state.label.education_label[obj_key]}: {item[obj_key]}
-                      </div>
-                    )
-                  })}
-                </div>
-              )
-            })}
-            {this.state.work.map((item, pos) => {
-              return (
-                <div>
-                  Work Position {pos + 1}{" "}
-                  <i onClick={() => this.editWork(pos)}>
-                    <img
-                      src={EditButton}
-                      alt={"Edit work position" + pos + 1}
-                    ></img>
-                  </i>{" "}
-                  <i onClick={() => this.deleteWork(pos)}>
-                    <img
-                      src={TrashButton}
-                      alt={"Delete work position " + pos + 1}
-                    ></img>
-                  </i>
-                  {Object.keys(item).map((obj_key) => {
-                    return (
-                      <div>
-                        {this.state.label.work_label[obj_key]}: {item[obj_key]}
-                      </div>
-                    )
-                  })}
-                </div>
-              )
-            })}
+            <h1 className="instruction info_heading">Entry</h1>
+            <div className="personal_entry">
+              <h1 className="entry_heading">Personal Information</h1>
+              {Object.keys(this.state.label.personal_info_label).map((item) => {
+                return (
+                  <div className="entries">
+                    <span className="entry_label">{this.state.label.personal_info_label[item]}:</span>
+                    <span className="entry_output">{this.state.personal_info[item]}</span>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="education_entry">
+              {this.state.education.map((item, pos) => {
+                return (
+                  <div className="education_output">
+                    <div className="output-title">
+                      <h1 className="entry_heading">Education Position {pos + 1}
+                      <img onClick={() => this.editEducation(pos)}
+                            className="icon edit"
+                            src={EditButton}
+                            alt={"Edit education position" + pos + 1}
+                          ></img>
+                          <img onClick={() => this.deleteEducation(pos)}
+                            className="icon trash"
+                            src={TrashButton}
+                            alt={"Delete education position " + pos + 1}
+                          ></img>
+                      </h1>
+                          
+                    </div>
+                    
+                    {Object.keys(item).map((obj_key) => {
+                      return (
+                        <div className="entries">
+                          <label className="entry_label">{this.state.label.education_label[obj_key]}:</label> 
+                          <span className="entry_output">{item[obj_key]}</span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              })}
+            </div>
+            <div className="work_entry">
+              {this.state.work.map((item, pos) => {
+                return (
+                  <div className={"work_output"}>
+                    <h1 className="entry_heading">Work Position {pos + 1}
+                      <img onClick={() => this.editWork(pos)}
+                        className="icon edit"
+                        src={EditButton}
+                        alt={"Edit work position" + pos + 1}
+                      ></img>
+                      <img onClick={() => this.deleteWork(pos)}
+                        className="icon trash"
+                        src={TrashButton}
+                        alt={"Delete work position " + pos + 1}
+                      ></img>
+                    </h1>
+                      
+                    {Object.keys(item).map((obj_key) => {
+                      return (
+                        <div className="entries">
+                          <label className="entry_label">{this.state.label.work_label[obj_key]}:</label>
+                          <span className="entry_output">{item[obj_key]}</span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </div>

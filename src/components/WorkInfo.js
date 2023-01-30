@@ -138,7 +138,6 @@ class WorkInfo extends React.Component {
 
     return(
       <div className="work_info">
-        <h1 className="info_heading">Work Information</h1>
         {
           Object.keys(workLabel).map((item) => {
             return(

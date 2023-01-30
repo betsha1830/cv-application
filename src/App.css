@@ -35,14 +35,13 @@ body {
 /* Sides styling -- End */
 
 .instruction {
-  font-size: 48px;
+  font-size: 42px;
   text-align: center;
   font-weight: bold;
   font-family: 'Tienne', serif;
 }
 
 .instruction_detail {
-  /* width: auto; */
   font-family: 'Mulish', sans-serif;
   font-size: 20px;
   text-align: justify;
@@ -50,6 +49,10 @@ body {
 }
 
 .info_heading {
+  text-align: left;
+}
+
+.entry_heading {
   font-family: 'Tienne', serif;
   font-size: 30px;
   font-weight: bold;
@@ -120,4 +123,52 @@ button:hover {
   cursor: pointer;
   background-color: black;
   color: white;
+}
+
+.personal_entry, .education_entry, .work_entry {
+  margin-bottom: 60px;
+}
+
+.entry_heading {
+  font-family: 'Tienne', serif;
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 24px;
+}
+
+.entry_label {
+  font-family: 'Mulish', sans-serif;
+  font-size: 24px;
+  font-weight: lighter;
+  flex: none;
+}
+
+.entry_output {
+  font-family: 'Mulish', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 24px;
+  text-align: justify;
+}
+
+.entries {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.output-title {
+  flex-direction: row;
+}
+
+.trash:hover {
+  src: url('./red-trash.png');
 }

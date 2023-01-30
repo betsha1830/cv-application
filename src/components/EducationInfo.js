@@ -75,7 +75,6 @@ class EducationInfo extends Component {
     const {educationLabel} = this.props
     return (
       <div className='eduction_info'>
-        <h1 className="info_heading">Education Information</h1>
         {Object.keys(educationLabel).map((item) => {
           return (
           <div>
