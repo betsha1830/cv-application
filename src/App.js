@@ -166,7 +166,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App container">
+      <div className="App">
+        <div className="container">
         <h1 className="header">C.V. Maker</h1>
         <div className="content">
           <div className="left_side">
@@ -274,6 +275,9 @@ class App extends React.Component {
             </div>
           </div>
         </div>
+        </div>
+        
+        <Footer/>
       </div>
     )
   }
