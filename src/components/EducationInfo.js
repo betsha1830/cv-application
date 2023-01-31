@@ -14,7 +14,6 @@ class EducationInfo extends Component {
       let new_obj = {}
       Object.keys(this.props.educationLabel).forEach((label) => {
         new_obj = Object.assign(new_obj, {[label]: document.getElementById(label).value})
-        // console.log(document.getElementById(label).value, new_obj)
       })
       const user_input = {
         [e.target.id]: e.target.value
@@ -23,7 +22,6 @@ class EducationInfo extends Component {
       this.setState({
         temp: new_obj
       })
-      // console.log(this.state.temp)
     }
     else{
       const user_input = {
@@ -33,7 +31,6 @@ class EducationInfo extends Component {
       this.setState({
         temp: new_obj,
       })
-      // console.log(this.state.temp)
     }
   }
 
@@ -49,7 +46,6 @@ class EducationInfo extends Component {
         let obj = {}
         Object.keys(this.props.educationLabel).forEach((label) => {
           obj = Object.assign(obj, {[label]: document.getElementById(label).value})
-          // console.log(document.getElementById(label).value, obj)
         })
         this.props.clickHandler(obj)
         this.clearFields()

@@ -66,16 +66,12 @@ class App extends React.Component {
           if (Object.entries(obj).length === 0) { // checks if the object is empty or not
             final_arr.push(item)
           } else {
-            console.log(obj)
             final_arr.push(obj)
           }
         } else {
-          console.log(item)
           final_arr.push(item)
         }
       })
-
-      console.log(final_arr)
 
       this.setState({
         work: final_arr,
@@ -100,7 +96,6 @@ class App extends React.Component {
             final_arr.push(obj)
           }
         } else {
-          console.log(item)
           final_arr.push(item)
         }
       })
@@ -142,7 +137,6 @@ class App extends React.Component {
 
   editWork = (pos) => {
     this.work_pos = pos
-    console.log(this.work_pos)
     document.getElementById("add_work_button").innerText = "Done"
     Object.keys(this.state.work[pos]).map((key) => {
       return (document.getElementById(key).value = this.state.work[pos][key])
@@ -168,115 +162,114 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="container">
-        <h1 className="header">C.V. Maker</h1>
-        <div className="content">
-          <div className="left_side">
-            <div className="pesronal_info">
-              <PersonalInfo
-              personal_info_obj={this.state.label.personal_info_label}
-              clickHandler={this.submitPersonalInfo}
-              />
-            </div>
-            <div className="education_info">
-              <EducationInfo
-              educationLabel={this.state.label.education_label}
-              educationArr={this.state.education[this.education_pos]}
-              clickHandler={this.submitEducationInfo}
-              />
-            </div>
-            <div className="work_education">
-              <WorkInfo
-              workLabel={this.state.label.work_label}
-              workArr={this.state.work[this.work_pos]}
-              clickHandler={this.submitWorkInfo}
-              />
-            </div>
-          </div>
+          <h1 className="header">C.V. Maker</h1>
+            <div className="content">
+              <div className="left_side">
+                <div className="pesronal_info">
+                  <PersonalInfo
+                  personal_info_obj={this.state.label.personal_info_label}
+                  clickHandler={this.submitPersonalInfo}
+                  />
+                </div>
+                <div className="education_info">
+                  <EducationInfo
+                  educationLabel={this.state.label.education_label}
+                  educationArr={this.state.education[this.education_pos]}
+                  clickHandler={this.submitEducationInfo}
+                  />
+                </div>
+                <div className="work_education">
+                  <WorkInfo
+                  workLabel={this.state.label.work_label}
+                  workArr={this.state.work[this.work_pos]}
+                  clickHandler={this.submitWorkInfo}
+                  />
+                </div>
+              </div>
 
-          <div className="right_side">
-            <h1 className="instruction">Instructions</h1>
-            <div className="instruction_detail">
-            Pretty simple. Fill out this simple form and when you’re done, just click on 
-            'button' to generate your own CV.
-            <br></br><br></br>If you want to edit or remove any of your entry you can do so in the Entry section.
-            </div>
-            <h1 className="instruction info_heading">Entry</h1>
-            <div className="personal_entry">
-              <h1 className="entry_heading">Personal Information</h1>
-              {Object.keys(this.state.label.personal_info_label).map((item) => {
-                return (
-                  <div className="entries">
-                    <span className="entry_label">{this.state.label.personal_info_label[item]}:</span>
-                    <span className="entry_output">{this.state.personal_info[item]}</span>
-                  </div>
-                )
-              })}
-            </div>
-            <div className="education_entry">
-              {this.state.education.map((item, pos) => {
-                return (
-                  <div className="education_output">
-                    <div className="output-title">
-                      <h1 className="entry_heading">Education Position {pos + 1}
-                      <img onClick={() => this.editEducation(pos)}
+              <div className="right_side">
+                <h1 className="instruction">Instructions</h1>
+                <div className="instruction_detail">
+                Pretty simple. Fill out this simple form and when you’re done, just click on 
+                'button' to generate your own CV.
+                <br></br><br></br>If you want to edit or remove any of your entry you can do so in the Entry section.
+                </div>
+                <h1 className="instruction info_heading">Entry</h1>
+                <div className="personal_entry">
+                  <h1 className="entry_heading">Personal Information</h1>
+                  {Object.keys(this.state.label.personal_info_label).map((item) => {
+                    return (
+                      <div className="entries">
+                        <span className="entry_label">{this.state.label.personal_info_label[item]}:</span>
+                        <span className="entry_output">{this.state.personal_info[item]}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="education_entry">
+                  {this.state.education.map((item, pos) => {
+                    return (
+                      <div className="education_output">
+                        <div className="output-title">
+                          <h1 className="entry_heading">Education Position {pos + 1}
+                          <img onClick={() => this.editEducation(pos)}
+                                className="icon edit"
+                                src={EditButton}
+                                alt={"Edit education position" + pos + 1}
+                              ></img>
+                              <img onClick={() => this.deleteEducation(pos)}
+                                className="icon trash"
+                                src={TrashButton}
+                                alt={"Delete education position " + pos + 1}
+                              ></img>
+                          </h1>
+
+                        </div>
+
+                        {Object.keys(item).map((obj_key) => {
+                          return (
+                            <div className="entries">
+                              <label className="entry_label">{this.state.label.education_label[obj_key]}:</label> 
+                              <span className="entry_output">{item[obj_key]}</span>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="work_entry">
+                  {this.state.work.map((item, pos) => {
+                    return (
+                      <div className={"work_output"}>
+                        <h1 className="entry_heading">Work Position {pos + 1}
+                          <img onClick={() => this.editWork(pos)}
                             className="icon edit"
                             src={EditButton}
-                            alt={"Edit education position" + pos + 1}
+                            alt={"Edit work position" + pos + 1}
                           ></img>
-                          <img onClick={() => this.deleteEducation(pos)}
+                          <img onClick={() => this.deleteWork(pos)}
                             className="icon trash"
                             src={TrashButton}
-                            alt={"Delete education position " + pos + 1}
+                            alt={"Delete work position " + pos + 1}
                           ></img>
-                      </h1>
-                          
-                    </div>
-                    
-                    {Object.keys(item).map((obj_key) => {
-                      return (
-                        <div className="entries">
-                          <label className="entry_label">{this.state.label.education_label[obj_key]}:</label> 
-                          <span className="entry_output">{item[obj_key]}</span>
-                        </div>
-                      )
-                    })}
-                  </div>
-                )
-              })}
-            </div>
-            <div className="work_entry">
-              {this.state.work.map((item, pos) => {
-                return (
-                  <div className={"work_output"}>
-                    <h1 className="entry_heading">Work Position {pos + 1}
-                      <img onClick={() => this.editWork(pos)}
-                        className="icon edit"
-                        src={EditButton}
-                        alt={"Edit work position" + pos + 1}
-                      ></img>
-                      <img onClick={() => this.deleteWork(pos)}
-                        className="icon trash"
-                        src={TrashButton}
-                        alt={"Delete work position " + pos + 1}
-                      ></img>
-                    </h1>
-                      
-                    {Object.keys(item).map((obj_key) => {
-                      return (
-                        <div className="entries">
-                          <label className="entry_label">{this.state.label.work_label[obj_key]}:</label>
-                          <span className="entry_output">{item[obj_key]}</span>
-                        </div>
-                      )
-                    })}
-                  </div>
-                )
-              })}
+                        </h1>
+
+                        {Object.keys(item).map((obj_key) => {
+                          return (
+                            <div className="entries">
+                              <label className="entry_label">{this.state.label.work_label[obj_key]}:</label>
+                              <span className="entry_output">{item[obj_key]}</span>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        </div>
-        
         <Footer/>
       </div>
     )
